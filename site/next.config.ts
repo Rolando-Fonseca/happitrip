@@ -7,6 +7,15 @@ const nextConfig: NextConfig = {
   // Fijamos la raíz a esta carpeta para que la detección no suba de nivel.
   devIndicators: false,
 
+  images: {
+    remotePatterns: [
+      // Miniaturas de Wikipedia. Sirve desde varios subdominios
+      // (upload., thumb., …), así que el patrón los cubre todos.
+      // La lista blanca real está en lib/data/fuentes.ts.
+      { protocol: "https", hostname: "**.wikimedia.org" },
+    ],
+  },
+
   turbopack: {
     root: path.join(__dirname),
   },
