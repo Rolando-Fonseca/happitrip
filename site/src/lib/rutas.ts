@@ -1,13 +1,18 @@
+import type { Ciudad } from "@/lib/data/tipos"
+
 /**
  * Rutas de ejemplo. Los precios son estimaciones de viaje low cost
  * (pase de tren + hostal + comida, sin vuelos internacionales).
  * Sustituir por itinerarios reales antes de lanzar.
+ *
+ * Las ciudades son objetos y no cadenas porque la capa de datos las
+ * enriquece con coordenadas, clima y resumen. Ver `lib/data/`.
  */
 export type Ruta = {
   slug: string
   nombre: string
   pais: string
-  ciudades: string[]
+  ciudades: Ciudad[]
   dias: number
   precioDesde: number
   resumen: string
@@ -20,7 +25,12 @@ export const RUTAS: Ruta[] = [
     slug: "clasica",
     nombre: "La Clásica",
     pais: "Francia · Países Bajos · Alemania · Chequia",
-    ciudades: ["París", "Ámsterdam", "Berlín", "Praga"],
+    ciudades: [
+      { nombre: "París" },
+      { nombre: "Ámsterdam" },
+      { nombre: "Berlín" },
+      { nombre: "Praga" },
+    ],
     dias: 14,
     precioDesde: 820,
     resumen:
@@ -32,7 +42,12 @@ export const RUTAS: Ruta[] = [
     slug: "mediterranea",
     nombre: "La Mediterránea",
     pais: "España · Francia · Italia",
-    ciudades: ["Barcelona", "Niza", "Florencia", "Roma"],
+    ciudades: [
+      { nombre: "Barcelona" },
+      { nombre: "Niza" },
+      { nombre: "Florencia" },
+      { nombre: "Roma" },
+    ],
     dias: 12,
     precioDesde: 760,
     resumen:
@@ -44,7 +59,12 @@ export const RUTAS: Ruta[] = [
     slug: "alpina",
     nombre: "La Alpina",
     pais: "Alemania · Austria",
-    ciudades: ["Múnich", "Salzburgo", "Hallstatt", "Innsbruck"],
+    ciudades: [
+      { nombre: "Múnich" },
+      { nombre: "Salzburgo" },
+      { nombre: "Hallstatt" },
+      { nombre: "Innsbruck" },
+    ],
     dias: 10,
     precioDesde: 690,
     resumen:
@@ -56,7 +76,13 @@ export const RUTAS: Ruta[] = [
     slug: "atlantica",
     nombre: "La Atlántica",
     pais: "Portugal · España",
-    ciudades: ["Lisboa", "Oporto", "Santiago", "San Sebastián"],
+    ciudades: [
+      { nombre: "Lisboa" },
+      { nombre: "Oporto" },
+      // "Santiago" a secas geocodifica a Santiago de Chile.
+      { nombre: "Santiago", buscar: "Santiago de Compostela", wiki: "Santiago de Compostela" },
+      { nombre: "San Sebastián" },
+    ],
     dias: 11,
     precioDesde: 640,
     resumen:
@@ -65,3 +91,12 @@ export const RUTAS: Ruta[] = [
     alt: "Tranvía amarillo subiendo una calle estrecha de Lisboa",
   },
 ]
+
+/** Nombres de las ciudades de una ruta, para listarlas en la interfaz. */
+export function nombresDeCiudades(ruta: Ruta): string[] {
+  return ruta.ciudades.map((c) => c.nombre)
+}
+
+export function buscarRuta(slug: string): Ruta | undefined {
+  return RUTAS.find((r) => r.slug === slug)
+}
