@@ -1,25 +1,20 @@
 {
-  "name": "claude-webkit",
+  "name": "happitrip",
   "private": true,
-  "version": "1.0.0",
-  "description": "Build professional landing pages with Claude Code. Clone, run claude, answer questions, get a deployed website.",
-  "author": "Enrique Rocha (https://tododeia.com)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Hainrixz/claude-webkit.git"
-  },
+  "version": "0.2.0",
+  "description": "Planificador de itinerarios de Eurotrip. Landing y capa de datos.",
+  "author": "Rolando Fonseca",
+  "license": "UNLICENSED",
   "scripts": {
-    "hero": "node docs/assets/hero/render.mjs",
-    "hero:chrome": "node docs/assets/hero/render.mjs --chrome",
-    "verify:stacks": "python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"accessibility\" --stack shadcn"
+    "dev": "npm --prefix site run dev",
+    "build": "npm --prefix site run build",
+    "start": "npm --prefix site run start",
+    "lint": "npm --prefix site run lint"
   },
   "keywords": [
-    "claude-code",
-    "web-builder",
-    "landing-page",
-    "nextjs",
-    "ai-assisted",
-    "tododeia"
+    "eurotrip",
+    "interrail",
+    "planificador-de-viajes",
+    "nextjs"
   ]
 }

@@ -4,7 +4,7 @@
 
 ## 1. Inventario
 
-Catorce componentes, ninguno de más de 180 líneas. Doce viven en
+Dieciséis componentes, ninguno de más de 180 líneas. Doce viven en
 `site/src/components/` (once en `site/`, uno en `ui/`); `RootLayout` y `Home` están en
 `site/src/app/`, porque el App Router los trata como puntos de entrada y no como piezas
 reutilizables.
@@ -25,6 +25,8 @@ reutilizables.
 | `Revelar` | `site/revelar.tsx` | **Cliente** | — | Animación de entrada reutilizable |
 | `Button` | `ui/button.tsx` | Servidor | — | Botón con variantes (`cva`) |
 | `Instagram` / `Youtube` | `site/iconos-redes.tsx` | Servidor | — | SVG de marca propios |
+| `PaginaRuta` | `app/rutas/[slug]/page.tsx` | Servidor | — | Detalle de ruta. Consulta las fuentes externas |
+| `FichaCiudad` | `site/ficha-ciudad.tsx` | Servidor | — | Ciudad enriquecida: resumen, población y clima |
 
 ## 2. Equivalencia con el sistema legacy del enunciado
 
@@ -35,13 +37,14 @@ sobre un clon de Netflix. La correspondencia con HappiTrip es casi uno a uno:
 |---|---|---|
 | `App` | `RootLayout` + `Home` | Se parte en dos: el layout persiste entre rutas, la página no |
 | `Home` | `page.tsx` | En Verflix contenía estado y peticiones de red; aquí solo compone |
-| `Detail` | **No existe** | Es el hueco que abre la v2: `/rutas/[slug]` |
+| `Detail` | `PaginaRuta` (`/rutas/[slug]`) | Añadido en v0.2.0. Era el hueco que este mapeo detectó |
 | `Navbar` | `Nav` | Equivalente directo. Único con estado de interfaz |
 | `Grid` | `RutasSeccion` / `RutasCarrusel` | Se desdobla en dos: rejilla estática y carrusel |
 | `MovieCard` | Tarjeta de ruta (en línea) | No se extrajo a componente: se usa en dos sitios con formas distintas |
 
-**La ausencia de `Detail` es el hallazgo más útil de este mapeo.** Marca exactamente dónde
-empieza el trabajo de la v2 y explica por qué hoy no hace falta enrutado dinámico.
+**La ausencia de `Detail` fue el hallazgo más útil de este mapeo.** Señaló exactamente dónde
+empezaba el trabajo de la v2, y es la pieza que se construyó en la versión 0.2.0 junto con la
+capa de datos. Ver el artefacto 08.
 
 ## 3. Patrones legacy y cómo los evita esta arquitectura
 
@@ -56,11 +59,10 @@ porque esa es la justificación de la arquitectura elegida.
 | Prop drilling | Datos atravesando cinco niveles para llegar a una hoja; cualquier cambio de forma obliga a tocar todos los intermedios | Ningún dato baja más de un nivel |
 | Peticiones dentro del componente | Cascadas de llamadas, estados de carga por todas partes, difícil de cachear | No hay peticiones: los datos se resuelven en compilación |
 
-**Matiz honesto.** `RutasCarrusel` y `RutasSeccion` **importan** `RUTAS` directamente en
-lugar de recibirla por props. Hoy es cómodo porque la fuente es un array estático. Cuando en
-la v2 los datos vengan de una API, esa comodidad se convierte en acoplamiento: el componente
-sabría de dónde salen sus datos y no se podría reutilizar con otra fuente. **La v2 debe
-invertir esto** y pasar los datos por props desde el componente de servidor.
+**Matiz honesto.** `RutasCarrusel` y `RutasSeccion` **siguen importando** `RUTAS`
+directamente en lugar de recibirla por props. `FichaCiudad`, escrita después, sí recibe sus
+datos por props y por eso se puede reutilizar con cualquier fuente. La deuda sigue viva en
+los dos componentes de la portada: issue #1.
 
 Es decir: esta arquitectura evita el prop drilling, pero lo hace a costa de un acoplamiento
 que todavía no duele. Conviene registrarlo antes de que duela.
