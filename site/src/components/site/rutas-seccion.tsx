@@ -1,7 +1,9 @@
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 
-import { RUTAS } from "@/lib/rutas"
+import Link from "next/link"
+
+import { RUTAS, nombresDeCiudades } from "@/lib/rutas"
 import { Revelar } from "@/components/site/revelar"
 
 export function RutasSeccion() {
@@ -30,7 +32,7 @@ export function RutasSeccion() {
           {RUTAS.map((ruta, i) => (
             <li key={ruta.slug}>
               <Revelar retraso={i * 0.06}>
-              <article className="group h-full">
+              <Link href={`/rutas/${ruta.slug}`} className="group block h-full">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
                   <Image
                     src={ruta.imagen}
@@ -60,9 +62,9 @@ export function RutasSeccion() {
                   {ruta.resumen}
                 </p>
                 <p className="mt-4 text-xs leading-relaxed text-crema/60">
-                  {ruta.ciudades.join(" → ")}
+                  {nombresDeCiudades(ruta).join(" → ")}
                 </p>
-              </article>
+              </Link>
               </Revelar>
             </li>
           ))}

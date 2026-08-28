@@ -5,7 +5,9 @@ import Image from "next/image"
 import useEmblaCarousel from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
-import { RUTAS } from "@/lib/rutas"
+import Link from "next/link"
+
+import { RUTAS, nombresDeCiudades } from "@/lib/rutas"
 import { cn } from "@/lib/utils"
 
 export function RutasCarrusel() {
@@ -43,9 +45,9 @@ export function RutasCarrusel() {
               key={ruta.slug}
               className="min-w-0 shrink-0 basis-[68%] sm:basis-[42%] lg:basis-[31%]"
             >
-              <a
-                href="#rutas"
-                aria-label={`Ruta ${ruta.nombre}: ${ruta.ciudades.join(", ")}. ${ruta.dias} días desde ${ruta.precioDesde} euros`}
+              <Link
+                href={`/rutas/${ruta.slug}`}
+                aria-label={`Ruta ${ruta.nombre}: ${nombresDeCiudades(ruta).join(", ")}. ${ruta.dias} días desde ${ruta.precioDesde} euros`}
                 className={cn(
                   "group relative block aspect-[3/4] overflow-hidden rounded-2xl ring-1 ring-white/15 transition-all duration-500",
                   activa === i ? "opacity-100" : "opacity-75 hover:opacity-100"
@@ -70,10 +72,10 @@ export function RutasCarrusel() {
                     {ruta.nombre}
                   </h3>
                   <p className="mt-1 text-[11px] leading-snug text-white/70">
-                    {ruta.ciudades.join(" · ")}
+                    {nombresDeCiudades(ruta).join(" · ")}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
