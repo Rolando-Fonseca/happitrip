@@ -30,9 +30,10 @@ componentes a una fuente concreta y les impide reutilizarse con datos de API.
 
 ---
 
-## #2 · Dependencias: eliminar cuatro paquetes de Radix sin usar
+## #2 · Dependencias: eliminar cuatro paquetes de Radix sin usar — CERRADO
 
 **Etiquetas:** `dependencias` `deuda`
+**Resuelto:** 2026-08-28. Salieron 29 paquetes del árbol y el build siguió en verde.
 **Origen:** artefacto 03 §2
 
 `@radix-ui/react-dialog`, `@radix-ui/react-label`, `@radix-ui/react-navigation-menu` y
@@ -113,9 +114,10 @@ El contraste está verificado por cálculo y la semántica revisada sobre el HTM
 
 ---
 
-## #6 · Arquitectura: definir el contrato de datos para HappiTrip Data
+## #6 · Arquitectura: definir el contrato de datos para HappiTrip Data — CERRADO
 
 **Etiquetas:** `arquitectura`
+**Resuelto:** 2026-08-28 en `site/src/lib/data/tipos.ts`. Ver artefacto 08.
 **Origen:** artefacto 04 §4 · preparación de la Sesión 2
 **Depende de:** #1
 
@@ -139,9 +141,9 @@ Columnas del GitHub Project: `Backlog` → `En curso` → `En revisión` → `He
 
 | Issue | Columna inicial | Fecha límite |
 |---|---|---|
-| #2 Dependencias huérfanas | En curso | 2026-08-29 |
+| #2 Dependencias huérfanas | **Hecho** | 2026-08-29 |
 | #4 Marcadores de posición | Backlog | 2026-09-05 |
 | #5 Accesibilidad | Backlog | 2026-09-05 |
-| #1 Acoplamiento de datos | Backlog | 2026-09-11 |
-| #6 Contrato de datos | Backlog | 2026-09-04 |
+| #1 Acoplamiento de datos | En curso (parcial) | 2026-09-11 |
+| #6 Contrato de datos | **Hecho** | 2026-09-04 |
 | #3 Tarjeta duplicada | Backlog | Sin fecha: esperando disparador |
