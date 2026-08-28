@@ -8,9 +8,17 @@ Dirigido a viajeros jóvenes con presupuesto ajustado y pocos días libres. En
 prelanzamiento: el planificador automático todavía no existe y los primeros itinerarios se
 hacen a mano.
 
+**Demo:** https://site-eight-psi-94.vercel.app
+
 > Este repositorio tiene doble propósito. Es un producto real en desarrollo y, a la vez, el
 > proyecto troncal del portafolio de la certificación **Ingeniería de Contexto con sistemas
 > de IA**. Los artefactos académicos están en [`docs/`](docs/README.md).
+
+## Despliegue
+
+Alojado en Vercel, conectado a este repositorio: cada `push` a `main` publica una versión
+nueva. El *Root Directory* del proyecto en Vercel es **`site`**, no la raíz — la aplicación
+no está en el primer nivel del repositorio y sin ese ajuste la compilación falla.
 
 ## Arranque rápido
 
